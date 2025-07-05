@@ -1,0 +1,7 @@
+requests
+pandas
+sentence-transformers
+chromadb
+streamlit
+plotly
+altair
