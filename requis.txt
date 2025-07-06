@@ -6,3 +6,5 @@ chromadb
 streamlit
 plotly
 altair
+numpy
+tqdm
