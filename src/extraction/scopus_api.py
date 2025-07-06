@@ -1,3 +1,5 @@
+#src/extraction/scopus_api.py
+
 import os
 import requests
 import pandas as pd
@@ -63,6 +65,13 @@ class ScopusExtractor:
         df.to_csv(f'../../data/raw/{filename}.csv', index=False)
         print(f"Données sauvegardées dans data/raw/{filename}.csv")
 
+    def save_to_json(self, data, filename):
+        """Sauvegarde les données brutes dans un fichier JSON"""
+        import json
+        os.makedirs('../../data/raw', exist_ok=True)
+        with open(f'../../data/raw/{filename}.json', 'w', encoding='utf-8') as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        print(f"Données sauvegardées dans data/raw/{filename}.json")
 
 if __name__ == "__main__":
     extractor = ScopusExtractor()
@@ -73,6 +82,7 @@ if __name__ == "__main__":
 
     if results:
         extractor.save_to_csv(results, 'machine_learning_articles')
+        extractor.save_to_json(results, 'machine_learning_articles')
     else:
         print("Aucun résultat trouvé ou erreur lors de l'extraction.")
 
