@@ -1,0 +1,474 @@
+[
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105007725268",
+    "dc:title": "A cooperative hybrid breeding swarm intelligence algorithm for feature selection",
+    "prism:publicationName": "Pattern Recognition",
+    "prism:coverDate": "2026-01-01",
+    "prism:doi": "10.1016/j.patcog.2025.111901"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105001979206",
+    "dc:title": "Analysis of the Net Neutrality Equilibrium",
+    "prism:publicationName": "International Journal of Technology Knowledge and Society",
+    "prism:coverDate": "2025-12-30",
+    "prism:doi": "10.18848/1832-3669/CGP/v21i02/105-124"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005026225",
+    "dc:title": "Application of artificial intelligence in academic libraries: a bibliometric analysis and knowledge mapping",
+    "prism:publicationName": "Discover Artificial Intelligence",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1007/s44163-025-00295-9"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008725289",
+    "dc:title": "Creative generation and evaluation system of art design based on artificial intelligence",
+    "prism:publicationName": "Discover Artificial Intelligence",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1007/s44163-025-00343-4"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105007937211",
+    "dc:title": "Universal machine learning interatomic potentials are ready for phonons",
+    "prism:publicationName": "Npj Computational Materials",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1038/s41524-025-01650-1"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105002926099",
+    "dc:title": "Estimating 90th Percentile Times To Complete Multiple Pre-Operative Regional Anesthesia Procedures To Mitigate First-Case Start Operating Room Delays Caused by the Nerve Blocks",
+    "prism:publicationName": "Journal of Medical Systems",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1007/s10916-025-02179-y"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005581330",
+    "dc:title": "Advancements and limitations of LLMs in replicating human color-word associations",
+    "prism:publicationName": "Discover Artificial Intelligence",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1007/s44163-025-00323-8"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005870550",
+    "dc:title": "A novel framework for enhancing postpartum hemorrhage prediction: Balanced data preprocessing meets neural network modeling",
+    "prism:publicationName": "Biomedical Signal Processing and Control",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1016/j.bspc.2025.108073"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85217849283",
+    "dc:title": "MORKO: A Multi-objective Runge–Kutta Optimizer for Multi-domain Optimization Problems",
+    "prism:publicationName": "International Journal of Computational Intelligence Systems",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1007/s44196-024-00714-2"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105007444438",
+    "dc:title": "Multiplier leadership optimization algorithm (MLOA): unconstrained global optimization approach for melanoma classification",
+    "prism:publicationName": "Discover Internet of Things",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1007/s43926-025-00168-8"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008568387",
+    "dc:title": "Enhancing sound-based classification of birds and anurans with spectrogram representations and acoustic indices in neural network architectures",
+    "prism:publicationName": "Ecological Informatics",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1016/j.ecoinf.2025.103232"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85215566995",
+    "dc:title": "%diag_test: a generic SAS macro for evaluating diagnostic accuracy measures for multiple diagnostic tests",
+    "prism:publicationName": "BMC Medical Informatics and Decision Making",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1186/s12911-024-02808-5"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85213879701",
+    "dc:title": "A class imbalance aware hybrid model for accurate rice variety classification",
+    "prism:publicationName": "International Journal of Cognitive Computing in Engineering",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1016/j.ijcce.2024.12.004"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85206830427",
+    "dc:title": "Optimizing breast cancer diagnosis: Harnessing the power of nature-inspired metaheuristics for feature selection with soft voting classifiers",
+    "prism:publicationName": "International Journal of Cognitive Computing in Engineering",
+    "prism:coverDate": "2025-12-01",
+    "prism:doi": "10.1016/j.ijcce.2024.09.005"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85210015958",
+    "dc:title": "GTBTL-IoT: An Approach of Curtailing Task Offloading Time for Improved Responsiveness in IoT-MEC Model",
+    "prism:publicationName": "Eai Endorsed Transactions on Internet of Things",
+    "prism:coverDate": "2025-11-08",
+    "prism:doi": "10.4108/eetiot.5556"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008922641",
+    "dc:title": "RIVA: Efficient relational inference with variate attention",
+    "prism:publicationName": "Neural Networks",
+    "prism:coverDate": "2025-11-01",
+    "prism:doi": "10.1016/j.neunet.2025.107748"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005858383",
+    "dc:title": "MV-BMR: A real-time Motion and Vision Sensing Integration based Agile Badminton Robot",
+    "prism:publicationName": "Information Fusion",
+    "prism:coverDate": "2025-11-01",
+    "prism:doi": "10.1016/j.inffus.2025.103337"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105003916669",
+    "dc:title": "Sketch-SparseNet: Sparse convolution framework for sketch recognition",
+    "prism:publicationName": "Pattern Recognition",
+    "prism:coverDate": "2025-11-01",
+    "prism:doi": "10.1016/j.patcog.2025.111682"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105004873774",
+    "dc:title": "Bridging the knowledge-skill gap: The role of large language model and critical thinking in education",
+    "prism:publicationName": "Computers and Education",
+    "prism:coverDate": "2025-10-01",
+    "prism:doi": "10.1016/j.compedu.2025.105357"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105007289947",
+    "dc:title": "Boosting lightweight single image super-resolution via global prior feature",
+    "prism:publicationName": "Neural Networks",
+    "prism:coverDate": "2025-10-01",
+    "prism:doi": "10.1016/j.neunet.2025.107619"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005173412",
+    "dc:title": "Boosting hyperspectral image classification with Gate-Shift-Fuse mechanisms in a novel CNN-Transformer approach",
+    "prism:publicationName": "Computers and Electronics in Agriculture",
+    "prism:coverDate": "2025-10-01",
+    "prism:doi": "10.1016/j.compag.2025.110489"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105003542027",
+    "dc:title": "IDSNet: Unifying local and global context for skin lesion image segmentation",
+    "prism:publicationName": "Biomedical Signal Processing and Control",
+    "prism:coverDate": "2025-10-01",
+    "prism:doi": "10.1016/j.bspc.2025.107961"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105003804909",
+    "dc:title": "Equivariance and motion-enhanced Neighborhood Attention-based Pyramid network for 3D deformable medical image registration",
+    "prism:publicationName": "Biomedical Signal Processing and Control",
+    "prism:coverDate": "2025-10-01",
+    "prism:doi": "10.1016/j.bspc.2025.107897"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105007871907",
+    "dc:title": "Prediction and control of greenhouse temperature: Methods, applications, and future directions",
+    "prism:publicationName": "Computers and Electronics in Agriculture",
+    "prism:coverDate": "2025-10-01",
+    "prism:doi": "10.1016/j.compag.2025.110603"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105006474625",
+    "dc:title": "DCDNet: A deep neural network for dead chicken detection in layer farms",
+    "prism:publicationName": "Computers and Electronics in Agriculture",
+    "prism:coverDate": "2025-10-01",
+    "prism:doi": "10.1016/j.compag.2025.110492"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105007779128",
+    "dc:title": "A comprehensive review of fuzzy logic based interpretability and explainability of machine learning techniques across domains",
+    "prism:publicationName": "Neurocomputing",
+    "prism:coverDate": "2025-09-28",
+    "prism:doi": "10.1016/j.neucom.2025.130602"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005592267",
+    "dc:title": "Training-free multi-scale neural architecture search for high-incidence cancer prediction",
+    "prism:publicationName": "Engineering Applications of Artificial Intelligence",
+    "prism:coverDate": "2025-09-15",
+    "prism:doi": "10.1016/j.engappai.2025.111089"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005851968",
+    "dc:title": "Enhancing color selectivity in foundation models for downstream color vision tasks",
+    "prism:publicationName": "Neurocomputing",
+    "prism:coverDate": "2025-09-07",
+    "prism:doi": "10.1016/j.neucom.2025.130471"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008518325",
+    "dc:title": "VANILLA: Validated knowledge graph completion—A Normalization-based framework for Integrity, Link prediction, and Logical Accuracy",
+    "prism:publicationName": "Knowledge Based Systems",
+    "prism:coverDate": "2025-09-05",
+    "prism:doi": "10.1016/j.knosys.2025.113939"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008820640",
+    "dc:title": "Dual-stream feature extraction and semantic similarity for deep hashing image retrieval",
+    "prism:publicationName": "Knowledge Based Systems",
+    "prism:coverDate": "2025-09-05",
+    "prism:doi": "10.1016/j.knosys.2025.113950"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008566495",
+    "dc:title": "Multivariate time series forecasting based on time–frequency transform mixed convolution",
+    "prism:publicationName": "Knowledge Based Systems",
+    "prism:coverDate": "2025-09-05",
+    "prism:doi": "10.1016/j.knosys.2025.113912"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105007083935",
+    "dc:title": "Hydrodynamic Response Assessment of Floating Photovoltaic System Subjected to Environmental Loadings",
+    "prism:publicationName": "Journal of Advanced Research Design",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.37934/ard.132.1.1527"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105004878745",
+    "dc:title": "LION Data: A roaring transformation in data visualisation",
+    "prism:publicationName": "Computers and Chemical Engineering",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.compchemeng.2025.109153"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105001542857",
+    "dc:title": "A novel heterogeneous data classification approach combining gradient boosting decision trees and hybrid structure model",
+    "prism:publicationName": "Pattern Recognition",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.patcog.2025.111614"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005225471",
+    "dc:title": "The butterfly effect in neural networks: Unveiling hyperbolic chaos through parameter sensitivity",
+    "prism:publicationName": "Neural Networks",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.neunet.2025.107572"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105009306826",
+    "dc:title": "CNN-ViT: A multi-feature learning based approach for driver drowsiness detection",
+    "prism:publicationName": "Array",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.array.2025.100425"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005730031",
+    "dc:title": "Transfer learning on lateral capacity prediction of monopile foundations with limited data",
+    "prism:publicationName": "Computers and Geotechnics",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.compgeo.2025.107359"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005169499",
+    "dc:title": "A lightweight defect detection transformer for printed circuit boards combining image feature augmentation and refined cross-scale feature fusion",
+    "prism:publicationName": "Engineering Applications of Artificial Intelligence",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.engappai.2025.111128"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105004818311",
+    "dc:title": "A regularized transformer with adaptive token fusion for Alzheimer's disease diagnosis in brain magnetic resonance images",
+    "prism:publicationName": "Engineering Applications of Artificial Intelligence",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.engappai.2025.111058"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105004875260",
+    "dc:title": "Rehabilitation exercise score prediction through integration of spatial feature with graph structural learning",
+    "prism:publicationName": "Engineering Applications of Artificial Intelligence",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.engappai.2025.110833"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008806864",
+    "dc:title": "Energy-efficient cloud-edge collaborative model integrating digital twins and machine learning for scalable and adaptive distributed networks",
+    "prism:publicationName": "Sustainable Computing Informatics and Systems",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.suscom.2025.101157"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105004550527",
+    "dc:title": "Lightweight transformer-driven multi-scale trapezoidal attention network for saliency detection",
+    "prism:publicationName": "Engineering Applications of Artificial Intelligence",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.engappai.2025.110917"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105003243048",
+    "dc:title": "Mapping individual tree crowns to extract morphological attributes in urban areas using unmanned aerial vehicle-based LiDAR and RGB data",
+    "prism:publicationName": "Ecological Informatics",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.ecoinf.2025.103165"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008798196",
+    "dc:title": "Pointwise deep learning for leaf-wood segmentation of tropical tree point clouds from terrestrial laser scanning",
+    "prism:publicationName": "ISPRS Journal of Photogrammetry and Remote Sensing",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.isprsjprs.2025.06.023"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008731433",
+    "dc:title": "An effective CNN and Transformer fusion network for camouflaged object detection",
+    "prism:publicationName": "Computer Vision and Image Understanding",
+    "prism:coverDate": "2025-09-01",
+    "prism:doi": "10.1016/j.cviu.2025.104431"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005289227",
+    "dc:title": "Learning from imbalance: Cross-server power prediction in large data centers via domain adaptation regression",
+    "prism:publicationName": "Expert Systems with Applications",
+    "prism:coverDate": "2025-08-25",
+    "prism:doi": "10.1016/j.eswa.2025.127845"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005166739",
+    "dc:title": "A neural kernel framework for relation extraction",
+    "prism:publicationName": "Expert Systems with Applications",
+    "prism:coverDate": "2025-08-15",
+    "prism:doi": "10.1016/j.eswa.2025.128049"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105005192783",
+    "dc:title": "An unsupervised fusion framework of generation and retrieval for entity search",
+    "prism:publicationName": "Expert Systems with Applications",
+    "prism:coverDate": "2025-08-15",
+    "prism:doi": "10.1016/j.eswa.2025.128106"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008006789",
+    "dc:title": "Denoising diffusion wavelet models for zero-shot medical image translation",
+    "prism:publicationName": "Knowledge Based Systems",
+    "prism:coverDate": "2025-08-03",
+    "prism:doi": "10.1016/j.knosys.2025.113800"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105002702056",
+    "dc:title": "ReranKGC: A cooperative retrieve-and-rerank framework for multi-modal knowledge graph completion",
+    "prism:publicationName": "Neural Networks",
+    "prism:coverDate": "2025-08-01",
+    "prism:doi": "10.1016/j.neunet.2025.107467"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105000995469",
+    "dc:title": "RAGVA: Engineering retrieval augmented generation-based virtual assistants in practice",
+    "prism:publicationName": "Journal of Systems and Software",
+    "prism:coverDate": "2025-08-01",
+    "prism:doi": "10.1016/j.jss.2025.112436"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85219281026",
+    "dc:title": "A method for determining maximin OWA operator weights",
+    "prism:publicationName": "Information Sciences",
+    "prism:coverDate": "2025-08-01",
+    "prism:doi": "10.1016/j.ins.2025.122010"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105007712918",
+    "dc:title": "VectorMamba: Enhancing point cloud analysis through vector representations and state space modeling",
+    "prism:publicationName": "Computers and Graphics",
+    "prism:coverDate": "2025-08-01",
+    "prism:doi": "10.1016/j.cag.2025.104255"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105006453530",
+    "dc:title": "Impact of personal information and reputation system on gig workers’ employment status: an interpretable machine learning-based approach",
+    "prism:publicationName": "Journal of Computational Social Science",
+    "prism:coverDate": "2025-08-01",
+    "prism:doi": "10.1007/s42001-025-00371-1"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105001685288",
+    "dc:title": "AESeg: Affinity-enhanced segmenter using feature class mapping knowledge distillation for efficient RGB-D semantic segmentation of indoor scenes",
+    "prism:publicationName": "Neural Networks",
+    "prism:coverDate": "2025-08-01",
+    "prism:doi": "10.1016/j.neunet.2025.107438"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105008443069",
+    "dc:title": "An improved genetic algorithm and clone selection optimization-based gated recurrent unit networks for earthquake magnitude prediction",
+    "prism:publicationName": "Swarm and Evolutionary Computation",
+    "prism:coverDate": "2025-08-01",
+    "prism:doi": "10.1016/j.swevo.2025.102023"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/105006680120",
+    "dc:title": "Hybrid adaptive modeling using neural networks trained with nonlinear dynamics based features",
+    "prism:publicationName": "Knowledge Based Systems",
+    "prism:coverDate": "2025-07-19",
+    "prism:doi": "10.1016/j.knosys.2025.113674"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85210386805",
+    "dc:title": "Development of Quantum Safe Polynomial-Based Cryptography in Classical and Quantum Framework",
+    "prism:publicationName": "Internet Technology Letters",
+    "prism:coverDate": "2025-07-01",
+    "prism:doi": "10.1002/itl2.601"
+  },
+  {
+    "@_fa": "true",
+    "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85218249824",
+    "dc:title": "VideoQA in the Era of LLMs: An Empirical Study",
+    "prism:publicationName": "International Journal of Computer Vision",
+    "prism:coverDate": "2025-07-01",
+    "prism:doi": "10.1007/s11263-025-02385-8"
+  }
+]

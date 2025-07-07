@@ -1,11 +1,10 @@
-#src/extraction/scopus_api.py
-
 import os
 import requests
 import pandas as pd
 from tqdm import tqdm
 from dotenv import load_dotenv
 import time
+import json
 
 # Charger la clé API depuis .env
 load_dotenv()
@@ -60,32 +59,21 @@ class ScopusExtractor:
 
     def save_to_csv(self, data, filename):
         """Sauvegarde les données dans un fichier CSV"""
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../data/raw'))
+        os.makedirs(base_dir, exist_ok=True)
+        filepath = os.path.join(base_dir, f'{filename}.csv')
         df = pd.DataFrame(data)
-        os.makedirs('../../data/raw', exist_ok=True)
-        df.to_csv(f'../../data/raw/{filename}.csv', index=False)
-        print(f"Données sauvegardées dans data/raw/{filename}.csv")
+        df.to_csv(filepath, index=False)
+        print(f"Données sauvegardées dans {filepath}")
 
     def save_to_json(self, data, filename):
         """Sauvegarde les données brutes dans un fichier JSON"""
-        import json
-        os.makedirs('../../data/raw', exist_ok=True)
-        with open(f'../../data/raw/{filename}.json', 'w', encoding='utf-8') as f:
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../data/raw'))
+        os.makedirs(base_dir, exist_ok=True)
+        filepath = os.path.join(base_dir, f'{filename}.json')
+        with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
-        print(f"Données sauvegardées dans data/raw/{filename}.json")
-
-if __name__ == "__main__":
-    extractor = ScopusExtractor()
-
-    # Exemple de requête pour les articles sur "machine learning" en informatique
-    query = "TITLE-ABS-KEY(machine learning) AND SUBJAREA(COMP)"
-    results = extractor.extract_articles(query, max_results=50)
-
-    if results:
-        extractor.save_to_csv(results, 'machine_learning_articles')
-        extractor.save_to_json(results, 'machine_learning_articles')
-    else:
-        print("Aucun résultat trouvé ou erreur lors de l'extraction.")
-
+        print(f"Données sauvegardées dans {filepath}")
 
 def explore_data(data):
     """Affiche quelques informations sur les données extraites"""
@@ -113,6 +101,68 @@ def explore_data(data):
             print(f"- {title}")
 
 
-# Dans le bloc __main__, après l'extraction
-if results:
-    explore_data(results)
+def get_user_input():
+    """Demande à l'utilisateur les paramètres de recherche"""
+    print("\n=== Configuration de la recherche Scopus ===")
+
+    topic = input("Entrez le sujet de recherche (ex: 'machine learning'): ").strip()
+    while not topic:
+        print("Erreur: Le sujet ne peut pas être vide")
+        topic = input("Entrez le sujet de recherche: ").strip()
+
+    subject = input(
+        "Entrez le domaine scientifique (ex: 'COMP' pour informatique, 'BUSI' pour économie) [par défaut: COMP]: ").strip().upper()
+    subject = subject if subject else "COMP"
+
+    max_results = input("Nombre maximum de résultats à récupérer [par défaut: 50]: ").strip()
+    try:
+        max_results = int(max_results) if max_results else 50
+    except ValueError:
+        print("Valeur invalide, utilisation du défaut (50)")
+        max_results = 50
+
+    output_name = input(
+        "Nom de base pour les fichiers de sortie (sans extension) [par défaut: 'scopus_results']: ").strip()
+    output_name = output_name if output_name else "scopus_results"
+
+    return {
+        'topic': topic,
+        'subject': subject,
+        'max_results': max_results,
+        'output_name': output_name
+    }
+
+
+def create_query(topic, subject):
+    """Crée une requête Scopus valide"""
+    return f"TITLE-ABS-KEY({topic}) AND SUBJAREA({subject})"
+
+
+def main():
+    # Obtenir les paramètres de l'utilisateur
+    params = get_user_input()
+
+    # Créer l'extracteur
+    extractor = ScopusExtractor()
+
+    # Construire la requête
+    query = create_query(params['topic'], params['subject'])
+    print(f"\nRequête Scopus: {query}")
+    print(f"Nombre maximum de résultats: {params['max_results']}")
+
+    # Lancer l'extraction
+    results = extractor.extract_articles(query, max_results=params['max_results'])
+
+    if results:
+        # Sauvegarder les résultats
+        extractor.save_to_csv(results, params['output_name'])
+        extractor.save_to_json(results, params['output_name'])
+
+        # Afficher un aperçu des données
+        explore_data(results)
+    else:
+        print("Aucun résultat trouvé ou erreur lors de l'extraction.")
+
+
+if __name__ == "__main__":
+    main()
