@@ -1,283 +1,226 @@
 import pandas as pd
-import numpy as np
-import re
-import sqlite3
-from pathlib import Path
 import json
-from tqdm import tqdm
-import logging
-
-# Configuration
 from pathlib import Path
-
-# Chemins de base
-CURRENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = CURRENT_DIR.parent.parent
-DATA_DIR = ROOT_DIR / 'data'
-RAW_DIR = DATA_DIR / 'raw'
-PROCESSED_DIR = DATA_DIR / 'processed'
-DB_PATH = PROCESSED_DIR / 'scopus.sqlite'
-
-# Logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
+import re
+import sys
+from datetime import datetime
 
 class DataCleaner:
     def __init__(self):
-        self.processed_dir = PROCESSED_DIR
-        self.processed_dir.mkdir(parents=True, exist_ok=True)
+        self.raw_dir = Path("../../data/raw")
+        self.processed_dir = Path("../../data/processed")
+        self.processed_dir.mkdir(exist_ok=True)
 
-    def load_data(self, input_file):
-        """Charge les données depuis un fichier JSON ou CSV"""
-        input_path = RAW_DIR / input_file
+    def get_user_input(self) -> tuple:
+        available_files = [f.name for f in self.raw_dir.glob("*") if f.suffix in ('.csv', '.json')]
 
-        if input_path.suffix == '.json':
-            with open(input_path, 'r', encoding='utf-8') as f:
-                return pd.DataFrame(json.load(f))
+        if not available_files:
+            print("Aucun fichier CSV ou JSON trouvé dans data/raw/")
+            sys.exit(1)
+
+        print("\nFichiers disponibles dans data/raw/:")
+        for i, f in enumerate(available_files, 1):
+            print(f"{i}. {f}")
+
+        while True:
+            try:
+                choice = int(input("\nEntrez le numéro du fichier à nettoyer: "))
+                if 1 <= choice <= len(available_files):
+                    input_file = available_files[choice - 1]
+                    break
+                print("Numéro invalide. Veuillez réessayer.")
+            except ValueError:
+                print("Veuillez entrer un nombre valide.")
+
+        while True:
+            output_name = input("\nEntrez le nom des fichiers de sortie (sans extension): ").strip()
+            if output_name:
+                break
+            print("Le nom ne peut pas être vide.")
+
+        return input_file, output_name
+
+    def load_data(self, input_file: str) -> pd.DataFrame:
+        file_path = self.raw_dir / input_file
+
+        if file_path.suffix == '.csv':
+            return pd.read_csv(file_path)
+        elif file_path.suffix == '.json':
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            return pd.DataFrame(data)
         else:
-            return pd.read_csv(input_path)
+            raise ValueError("Format de fichier non supporté. Utilisez .csv ou .json")
 
-    def clean_text(self, text):
-        """Nettoie les textes des caractères spéciaux"""
-        if pd.isna(text):
-            return text
+    def clean_data(self, df: pd.DataFrame) -> pd.DataFrame:
+        df = df.copy()
 
-        replacements = [
-            ('\n', ' '), ('\r', ' '), ('\t', ' '),
-            ('&amp;', '&'), ('&quot;', '"'), ('&gt;', '>'),
-            ('&lt;', '<'), ('&#39;', "'")
-        ]
+        df = self._remove_duplicates(df)
+        df = self._clean_text_fields(df)
+        df = self._normalize_domains(df)
+        df = self._handle_missing_values(df)
+        df = self._process_authors(df)
+        df = self._process_categories(df)
+        df = self._process_dates(df)
 
-        cleaned = str(text)
-        for old, new in replacements:
-            cleaned = cleaned.replace(old, new)
+        return df
 
-        return cleaned.strip()
+    def _remove_duplicates(self, df: pd.DataFrame) -> pd.DataFrame:
+        if 'arxiv_id' in df.columns:
+            df = df.drop_duplicates(subset=['arxiv_id'], keep='first').copy()
+        else:
+            df = df.drop_duplicates().copy()
 
-    def extract_authors_info(self, authors_entry):
-        """Extrait et nettoie les informations des auteurs"""
-        if pd.isna(authors_entry):
-            return []
+        # Supprimer les lignes où arxiv_id, domain, title ou authors sont vides ou NaN
+        required_fields = ['arxiv_id', 'domain', 'title', 'authors']
+        for field in required_fields:
+            if field in df.columns:
+                df = df[df[field].notna() & (df[field].astype(str).str.strip() != '')]
 
-        authors = []
-        if isinstance(authors_entry, str):
-            try:
-                authors_entry = json.loads(authors_entry.replace("'", '"'))
-            except:
-                return []
+        return df
 
-        for author in authors_entry:
-            try:
-                author_info = {
-                    'scopus_id': author.get('@auid', ''),
-                    'orcid': author.get('@orcid', ''),
-                    'given_name': author.get('preferred-name', {}).get('given-name', ''),
-                    'surname': author.get('preferred-name', {}).get('surname', ''),
-                    'affiliation_id': author.get('affiliation', [{}])[0].get('@id', ''),
-                    'affiliation_name': author.get('affiliation', [{}])[0].get('@name', '')
-                }
-                authors.append(author_info)
-            except:
-                continue
+    def _clean_text_fields(self, df: pd.DataFrame) -> pd.DataFrame:
+        text_cols = ['title', 'abstract', 'authors', 'comment', 'journal_ref']
 
-        return authors
-
-    def clean_dataframe(self, df):
-        """Nettoie le dataframe principal"""
-        logger.info("Nettoyage des données...")
-
-        # Suppression des doublons
-        df = df.drop_duplicates(subset=['dc:identifier', 'prism:doi'], keep='first')
-
-        # Nettoyage des textes
-        text_cols = ['dc:title', 'dc:description', 'prism:publicationName', 'authkeywords']
         for col in text_cols:
             if col in df.columns:
-                df[col] = df[col].apply(self.clean_text)
+                df.loc[:, col] = df[col].astype(str).apply(self._clean_text)
 
-        # Gestion des valeurs manquantes
-        df['dc:description'] = df['dc:description'].fillna('Abstract not available')
-        df['authkeywords'] = df['authkeywords'].fillna('No keywords')
+        return df
 
-        # Extraction de l'année
-        df['year'] = pd.to_datetime(df['prism:coverDate']).dt.year
+    def _clean_text(self, text: str) -> str:
+        if not isinstance(text, str):
+            return ""
+        text = re.sub(r'\s+', ' ', text)
+        text = re.sub(r'[^\w\s.,;:!?\'"-]', '', text)
+        return text.strip()
 
-        # Nettoyage des domaines
-        if 'subject-area' in df.columns:
-            df['subject-area'] = df['subject-area'].apply(
-                lambda x: [area['@abbrev'] for area in x] if isinstance(x, list) else []
+    def _normalize_domains(self, df: pd.DataFrame) -> pd.DataFrame:
+        if 'domain' in df.columns:
+            df.loc[:, 'domain'] = df['domain'].str.replace('all:', '', regex=False).str.title()
+        return df
+
+    def _handle_missing_values(self, df: pd.DataFrame) -> pd.DataFrame:
+        if 'abstract' in df.columns:
+            df.loc[:, 'abstract'] = df['abstract'].fillna('No abstract available')
+
+        if 'doi' in df.columns:
+            df.loc[:, 'doi'] = df['doi'].fillna('AUCUN')
+
+        if 'comment' in df.columns:
+            df.loc[:, 'comment'] = df['comment'].replace(['None', 'nan'], 'AUCUN').fillna('AUCUN')
+
+        if 'journal_ref' in df.columns:
+            df.loc[:, 'journal_ref'] = df['journal_ref'].replace(['None', 'nan'], 'AUCUNE').fillna('AUCUNE')
+
+        return df
+
+    def _process_authors(self, df: pd.DataFrame) -> pd.DataFrame:
+        if 'authors' in df.columns:
+            def parse_authors(x):
+                if isinstance(x, list):
+                    return x
+                if isinstance(x, str):
+                    try:
+                        return json.loads(x)
+                    except json.JSONDecodeError:
+                        authors_list = [a.strip() for a in x.split(';') if a.strip()]
+                        return [{'name': name, 'affiliation': None} for name in authors_list]
+                return []
+
+            df.loc[:, 'authors_parsed'] = df['authors'].apply(parse_authors)
+
+            df.loc[:, 'author_count'] = df['authors_parsed'].apply(len)
+
+            df.loc[:, 'first_author'] = df['authors_parsed'].apply(
+                lambda x: x[0]['name'] if len(x) > 0 else 'Unknown'
+            )
+            df.loc[:, 'last_author'] = df['authors_parsed'].apply(
+                lambda x: x[-1]['name'] if len(x) > 0 else 'Unknown'
             )
 
         return df
 
-    def create_database_schema(self, conn):
-        """Crée la structure de la base de données"""
-        cursor = conn.cursor()
+    def _process_categories(self, df: pd.DataFrame) -> pd.DataFrame:
+        if 'categories' in df.columns:
+            def fix_cats(cat):
+                if not isinstance(cat, str):
+                    return ""
 
-        # Table Articles
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS articles (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            scopus_id TEXT UNIQUE,
-            doi TEXT UNIQUE,
-            title TEXT,
-            abstract TEXT,
-            publication_date TEXT,
-            publication_name TEXT,
-            keywords TEXT,
-            subject_areas TEXT
-        )
-        """)
+                # Cas 1: Déjà séparé par des pipes (|)
+                if '|' in cat:
+                    return '; '.join([c.strip() for c in cat.split('|') if c.strip()])
 
-        # Table Authors
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS authors (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            scopus_id TEXT UNIQUE,
-            orcid TEXT,
-            given_name TEXT,
-            surname TEXT
-        )
-        """)
+                # Cas 2: Déjà séparé par des points-virgules (mais mal formaté)
+                if ';' in cat:
+                    return '; '.join([c.strip() for c in cat.split(';') if c.strip()])
 
-        # Table Affiliations
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS affiliations (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            scopus_id TEXT UNIQUE,
-            name TEXT,
-            country TEXT
-        )
-        """)
+                # Cas 3: Autres formats (garder tel quel)
+                return cat.strip()
 
-        # Table de jointure Article-Author
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS article_author (
-            article_id INTEGER,
-            author_id INTEGER,
-            PRIMARY KEY (article_id, author_id),
-            FOREIGN KEY (article_id) REFERENCES articles(id),
-            FOREIGN KEY (author_id) REFERENCES authors(id)
-        )
-        """)
+            df.loc[:, 'categories'] = df['categories'].apply(fix_cats)
 
-        # Table de jointure Author-Affiliation
-        cursor.execute("""
-        CREATE TABLE IF NOT EXISTS author_affiliation (
-            author_id INTEGER,
-            affiliation_id INTEGER,
-            PRIMARY KEY (author_id, affiliation_id),
-            FOREIGN KEY (author_id) REFERENCES authors(id),
-            FOREIGN KEY (affiliation_id) REFERENCES affiliations(id)
-        )
-        """)
+        return df
 
-        conn.commit()
+    def _process_dates(self, df: pd.DataFrame) -> pd.DataFrame:
+        for date_col in ['published', 'updated']:
+            if date_col in df.columns:
+                def format_date(d):
+                    if not isinstance(d, str):
+                        return ""
+                    d_split = d.split(',')  # Séparation multiple si jamais
+                    d1 = d_split[0].strip()
+                    try:
+                        dt = datetime.strptime(d1, "%Y-%m-%dT%H:%M:%SZ")
+                        return dt.strftime("%Y/%m/%d %H:%M:%S")
+                    except Exception:
+                        return d1  # Garder tel quel si erreur
 
-    def save_to_database(self, df):
-        """Sauvegarde les données nettoyées dans SQLite"""
-        logger.info("Sauvegarde dans la base de données...")
-        conn = sqlite3.connect(DB_PATH)
-        self.create_database_schema(conn)
+                df.loc[:, date_col] = df[date_col].apply(format_date)
 
-        # Insertion des articles
-        articles = df[[
-            'dc:identifier', 'prism:doi', 'dc:title',
-            'dc:description', 'prism:coverDate',
-            'prism:publicationName', 'authkeywords', 'subject-area'
-        ]].copy()
+        return df
 
-        articles.columns = [
-            'scopus_id', 'doi', 'title', 'abstract',
-            'publication_date', 'publication_name', 'keywords', 'subject_areas'
-        ]
+    def save_clean_data(self, df: pd.DataFrame, output_name: str):
+        csv_path = self.processed_dir / f"{output_name}.csv"
+        json_path = self.processed_dir / f"{output_name}.json"
 
-        articles['subject_areas'] = articles['subject_areas'].apply(
-            lambda x: ', '.join(x) if isinstance(x, list) else ''
-        )
+        # Sauvegarde CSV avec colonnes utiles
+        df.to_csv(csv_path, index=False, encoding='utf-8')
+        print(f"\nDonnées nettoyées sauvegardées en CSV: {csv_path}")
 
-        articles.to_sql('articles', conn, if_exists='append', index=False)
-
-        # Récupération des IDs des articles insérés
-        article_ids = pd.read_sql("SELECT id, scopus_id FROM articles", conn)
-
-        # Traitement des auteurs et affiliations
-        authors_data = []
-        affiliations_data = []
-        article_author_links = []
-        author_affiliation_links = []
-
-        for _, row in tqdm(df.iterrows(), total=len(df), desc="Traitement des auteurs"):
-            article_scopus_id = row['dc:identifier']
-            article_id = article_ids[article_ids['scopus_id'] == article_scopus_id]['id'].values[0]
-
-            authors = self.extract_authors_info(row.get('author', []))
-
-            for author in authors:
-                # Ajout auteur
-                authors_data.append((
-                    author['scopus_id'], author['orcid'],
-                    author['given_name'], author['surname']
-                ))
-
-                # Ajout affiliation si existe
-                if author['affiliation_id']:
-                    affiliations_data.append((
-                        author['affiliation_id'], author['affiliation_name'], ''
-                    ))
-
-                # Liens
-                author_idx = len(authors_data) - 1
-                article_author_links.append((article_id, author_idx + 1))  # +1 car SQLite commence à 1
-
-                if author['affiliation_id']:
-                    aff_idx = len(affiliations_data) - 1
-                    author_affiliation_links.append((author_idx + 1, aff_idx + 1))
-
-        # Insertion en masse
-        pd.DataFrame(authors_data, columns=[
-            'scopus_id', 'orcid', 'given_name', 'surname'
-        ]).drop_duplicates('scopus_id').to_sql('authors', conn, if_exists='append', index=False)
-
-        pd.DataFrame(affiliations_data, columns=[
-            'scopus_id', 'name', 'country'
-        ]).drop_duplicates('scopus_id').to_sql('affiliations', conn, if_exists='append', index=False)
-
-        # Insertion des liens
-        pd.DataFrame(article_author_links, columns=[
-            'article_id', 'author_id'
-        ]).to_sql('article_author', conn, if_exists='append', index=False)
-
-        pd.DataFrame(author_affiliation_links, columns=[
-            'author_id', 'affiliation_id'
-        ]).to_sql('author_affiliation', conn, if_exists='append', index=False)
-
-        conn.close()
-        logger.info(f"Base de données sauvegardée: {DB_PATH}")
-
-    def save_to_csv(self, df):
-        """Sauvegarde les données nettoyées en CSV"""
-        csv_path = self.processed_dir / 'cleaned_data.csv'
-        df.to_csv(csv_path, index=False)
-        logger.info(f"Données CSV nettoyées sauvegardées: {csv_path}")
+        # Sauvegarde JSON sans authors_parsed
+        df_json = df.drop(columns=['authors_parsed'], errors='ignore')
+        with open(json_path, 'w', encoding='utf-8') as f:
+            json.dump(json.loads(df_json.to_json(orient='records')), f, indent=2, ensure_ascii=False)
+        print(f"Données nettoyées sauvegardées en JSON: {json_path}")
 
 
 def main():
+    print("\n=== ArXiv Data Cleaning Tool ===")
+
     cleaner = DataCleaner()
 
-    # Chargement des données
-    input_file = input("Entrez le nom du fichier à nettoyer (depuis data/raw/): ")
-    df = cleaner.load_data(input_file)
+    input_file, output_name = cleaner.get_user_input()
 
-    # Nettoyage
-    cleaned_df = cleaner.clean_dataframe(df)
+    print(f"\nChargement du fichier {input_file}...")
+    raw_df = cleaner.load_data(input_file)
 
-    # Sauvegarde
-    cleaner.save_to_csv(cleaned_df)
-    cleaner.save_to_database(cleaned_df)
+    print("Nettoyage des données en cours...")
+    clean_df = cleaner.clean_data(raw_df)
 
-    logger.info("Nettoyage terminé avec succès!")
+    print("\nSauvegarde des résultats...")
+    cleaner.save_clean_data(clean_df, output_name)
+
+    print("\nRésumé du traitement:")
+    print(f"- Articles initiaux: {len(raw_df)}")
+    print(f"- Articles après nettoyage: {len(clean_df)}")
+    print(f"- Doublons supprimés: {len(raw_df) - len(clean_df)}")
+
+    if 'authors_parsed' in clean_df.columns:
+        total_authors = sum(len(authors) for authors in clean_df['authors_parsed'] if isinstance(authors, list))
+        print(f"- Nombre total d'auteurs: {total_authors}")
+    else:
+        print("- Colonne 'authors_parsed' non trouvée")
 
 
 if __name__ == "__main__":
