@@ -108,10 +108,10 @@ class ArXivExtractor:
         output_dir.mkdir(parents=True, exist_ok=True)
 
         # Sauvegarde JSON
-        json_path = output_dir / f'{filename}.json'
+        """ json_path = output_dir / f'{filename}.json'
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(all_articles, f, indent=2, ensure_ascii=False)
-        print(f"\nFichier JSON sauvegardé : {json_path}")
+        print(f"\nFichier JSON sauvegardé : {json_path}")"""
 
         # Conversion pour CSV
         csv_data = []

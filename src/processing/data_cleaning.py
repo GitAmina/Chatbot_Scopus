@@ -189,10 +189,10 @@ class DataCleaner:
         print(f"\nDonnées nettoyées sauvegardées en CSV: {csv_path}")
 
         # Sauvegarde JSON sans authors_parsed
-        df_json = df.drop(columns=['authors_parsed'], errors='ignore')
+        """df_json = df.drop(columns=['authors_parsed'], errors='ignore')
         with open(json_path, 'w', encoding='utf-8') as f:
             json.dump(json.loads(df_json.to_json(orient='records')), f, indent=2, ensure_ascii=False)
-        print(f"Données nettoyées sauvegardées en JSON: {json_path}")
+        print(f"Données nettoyées sauvegardées en JSON: {json_path}")"""
 
 
 def main():
